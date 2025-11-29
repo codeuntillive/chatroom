@@ -6,21 +6,33 @@ import dotenv from "dotenv";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import session from "express-session";
+import path from "path";
+import authRouter from "./auth.js";
+import messageRouter from "./message.js";
 dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// const
+const __dirname = path.resolve();
 
 
 // routes will go here
+app.use("/auth", authRouter);
+app.use("/message", messageRouter);
 
 
 
 
-
-
+// reday for deployment
+if(process.env.NODE_ENV === 'production'){
+  app.use(express.static(path.join(__dirname,'../frontend/dist')));
+  app.get('*',(req,res)=>{
+    res.sendFile(path.resolve(__dirname,'../frontend/dist/index.html'));
+  })
+}
 
 
 

@@ -7,7 +7,8 @@ import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import session from "express-session";
 
-router=express.Router();
+// main
+const router=express.Router();
 
 
 
@@ -16,5 +17,5 @@ router=express.Router();
 
 
 
-
+// export router
 export default router;

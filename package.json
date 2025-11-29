@@ -1,0 +1,21 @@
+{
+  "name": "chat_room",
+  "version": "1.0.0",
+  "description": "a simple chat room",
+  "homepage": "https://github.com/codeuntillive/chatroom#readme",
+  "bugs": {
+    "url": "https://github.com/codeuntillive/chatroom/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codeuntillive/chatroom.git"
+  },
+  "license": "ISC",
+  "author": "Aaditya",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd backend && npm install && cd ../frontend && npm install && npm run build && cd ..",
+    "start": "cd backend && node src/index.js"
+  }
+}
