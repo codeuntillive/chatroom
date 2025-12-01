@@ -15,13 +15,23 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(session({
+  secret: 'the secret key',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } 
+}));
+
+// Passport
+app.use(passport.initialize());
+app.use(passport.session());
 // const
 const __dirname = path.resolve();
 
 
 // routes will go here
-app.use("/auth", authRouter);
-app.use("/message", messageRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/message", messageRouter);
 
 
 
