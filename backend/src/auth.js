@@ -26,6 +26,90 @@ try{
     console.log(err);
 }
 // code for authentication routes will go here
+// local strategy
+passport.use(new LocalStrategy(async function verify(email,password,cb){
+    try{
+        const res=await db.query("SELECT * FROM users WHERE email=$1",[email]);
+        if(res.rows.length===0){
+            return cb(null,false,{message:"User not found"});
+        }
+        const user=res.rows[0];
+        const match=await bcrypt.compare(password,user.password);
+        if(match){
+            return cb(null,user);
+        }else{
+            return cb(null,false,{message:"Incorrect password"});
+        }
+    }catch(err){
+        return cb(err);
+    }
+}))
+passport.serializeUser(function(user,cb){
+    cb(null,user.email);
+});
+
+passport.deserializeUser(async function(email,cb){
+    try{
+        const res=await db.query("SELECT * FROM users WHERE email=$1",[email]); 
+        if(res.rows.length===0){
+            return cb(null,false);
+        }
+        const user=res.rows[0];
+        return cb(null,user);
+    }catch(err){
+        return cb(err);
+    }
+});
+// login route
+router.post('/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    // Log the message from the strategy callback
+    if (info && info.message) {
+      console.log('Passport Strategy Message:', info.message);
+    }
+
+    if (err) {
+      console.error('Authentication Error:', err);
+      return res.status(500).send('Authentication error.');
+    }
+    if (!user) {
+      return res.status(401).send(info.message || 'Authentication failed.');
+    }
+
+    // If authentication is successful, log the user in and establish session
+    req.logIn(user, function(err) {
+      if (err) {
+        return next(err);
+      }
+      console.log('User authenticated:', user.username);
+      return res.status(200).send('Logged in successfully!');
+    });
+  })(req, res, next);  // <== Don't forget this part!
+});
+// logout route
+router.post('/logout', function(req, res, next) {
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        res.send({ message: "Logged out successfully" });
+    });
+});
+// check if user is authenticated
+router.get('/check-auth', function(req, res) {
+    if (req.isAuthenticated()) {
+        res.send({ authenticated: true });
+    } else {
+        res.send({ authenticated: false });
+    }
+});
+// logout route
+router.post('/logout', function(req, res, next) {
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        res.send({ message: "Logged out successfully" });
+    });
+});
+
+// registration route
 router.post("/register", async (req, res) => {
   const { fullname, email, password, profilepic } = req.body;
 
@@ -137,7 +221,32 @@ router.post("/otp", async (req, res, next) => {
     res.status(500).send({ validate: false, message: "Error during registration" });
   }
 });
+// resend otp route 
+router.post("/resend-otp", async (req, res) => {
+  if (!req.session.data) {
+    return res.status(400).send({ validate: false, message: "No registration in progress" });
+  }
+  const { email, passwordHash, fullname,profilepic } = req.session.data;
+  const otp = Math.floor(100000 + Math.random() * 900000);
+  const otpExpiry = Date.now() + 2 * 60 * 1000;
+  req.session.data.otp = otp;
+  req.session.data.otpExpiry = otpExpiry;
 
+  const mess_otp = await sendOTPEmail(email, otp);
+
+  if (mess_otp) {
+    res.send({
+      message: "OTP resent successfully.",
+      validate: true
+    });
+  } else {
+    res.send({
+      message: "Error sending OTP email.",
+      validate: false,
+      error: mess_otp
+    });
+  }
+});
 
 
 // export router
