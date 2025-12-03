@@ -247,6 +247,30 @@ router.post("/resend-otp", async (req, res) => {
     });
   }
 });
+// update profile route
+checkauth = (req, res, next) => {
+  if (req.isAuthenticated()) { 
+      res.send({validate:true, message: "User logged in" });
+       return next();
+  } else {
+    return res.status(401).send({validate:false, message: "User not logged in" });
+   }
+
+}
+router.post("/update-profile",checkauth, async (req, res) => {
+  const { fullname, profilepic } = req.body;
+  const email = req.user.email;
+  try {
+    const result = await db.query(
+      "UPDATE users SET fullname = $1, profilepic = $2 WHERE email = $3 RETURNING *",
+      [fullname, profilepic, email]
+    );
+    res.send({ validate: true, message: "Profile updated successfully", user: result.rows[0] });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ validate: false, message: "Error updating profile" });
+  }
+});
 
 
 // export router
