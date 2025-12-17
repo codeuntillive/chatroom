@@ -8,11 +8,12 @@ import { Strategy as LocalStrategy } from "passport-local";
 import session from "express-session";
 import path from "path";
 import authRouter from "./auth.js";
+import { checkauth } from "./auth.js";
 import messageRouter from "./message.js";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(cors({Credential:true}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
@@ -31,7 +32,7 @@ const __dirname = path.resolve();
 
 // routes will go here
 app.use("/api/auth", authRouter);
-app.use("/api/message", messageRouter);
+app.use("/api/message",checkauth, messageRouter);
 
 
 

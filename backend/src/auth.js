@@ -27,9 +27,9 @@ try{
 }
 // code for authentication routes will go here
 // local strategy
-passport.use(new LocalStrategy(async function verify(email,password,cb){
+passport.use(new LocalStrategy(async function verify(username,password,cb){
     try{
-        const res=await db.query("SELECT * FROM users WHERE email=$1",[email]);
+        const res=await db.query("SELECT * FROM users WHERE email=$1",[username]);
         if(res.rows.length===0){
             return cb(null,false,{message:"User not found"});
         }
@@ -248,9 +248,9 @@ router.post("/resend-otp", async (req, res) => {
   }
 });
 // update profile route
-checkauth = (req, res, next) => {
+const checkauth = (req, res, next) => {
   if (req.isAuthenticated()) { 
-      res.send({validate:true, message: "User logged in" });
+      
        return next();
   } else {
     return res.status(401).send({validate:false, message: "User not logged in" });
@@ -271,7 +271,18 @@ router.post("/update-profile",checkauth, async (req, res) => {
     res.status(500).send({ validate: false, message: "Error updating profile" });
   }
 });
+// user
+router.get("/user", checkauth, async (req, res) => {
+  try {
+    const user = req.user;
+    res.send({ validate: true, user:user });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ validate: false, message: "Error fetching user data" });
+  }
+});
 
 
 // export router
 export default router;
+export { checkauth };
