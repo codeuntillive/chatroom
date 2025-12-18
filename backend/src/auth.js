@@ -253,7 +253,7 @@ const checkauth = (req, res, next) => {
       
        return next();
   } else {
-    return res.status(401).send({validate:false, message: "User not logged in" });
+    return res.send({validate:false, message: "User not logged in" });
    }
 
 }
@@ -274,6 +274,7 @@ router.post("/update-profile",checkauth, async (req, res) => {
 // user
 router.get("/user", checkauth, async (req, res) => {
   try {
+    
     const user = req.user;
     res.send({ validate: true, user:user });
   } catch (err) {
