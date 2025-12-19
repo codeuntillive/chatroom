@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Dashboard from './pages/db'
+import otp from './pages/otp'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
