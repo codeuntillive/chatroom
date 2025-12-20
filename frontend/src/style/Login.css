@@ -1,17 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Space Grotesk', sans-serif;
+  scrollbar-width: none; /* Firefox */
+}
 .container {
   width: 100%;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #5693ee;
+  background-color: rgb(249, 249, 249);
+  
 }
 .content{
     display: flex;
     flex-direction: row;
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
 }
 .login{
     background-color: rgb(255, 255, 255);
@@ -32,7 +40,7 @@
     flex-direction: column;
 }
 .header{
-    font-size: 81px;
+    font-size: 91px;
     font-family: "Space Grotesk";
     font-weight: 700;
 }
@@ -47,7 +55,7 @@ label{
     font-size: 20px;
     font-family: "Space Grotesk";
     font-weight: 200;
-    color: rgb(109, 255, 47);
+    color: rgb(92, 230, 32);
 }
 input{
     width: 100%;
@@ -57,6 +65,12 @@ input{
     font-family: "Space Grotesk";
     border: 2px solid rgb(195, 195, 195);
     border-radius: 5px;
+    transition: ease-in-out 0.3s;
+}
+input:focus{
+    outline: none;
+    border: 2px solid rgb(86, 147, 238);
+    filter: drop-shadow(0px 0px 5px rgb(86, 147, 238));
 }
 .login-btn{
     
@@ -73,8 +87,15 @@ input{
 .cont{
     display: flex;
     flex-direction: row;
-    
+    align-items: center;
+
 }
+.gmail, .password {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
 .forgot{
     font-size: 18px;
     font-family: "Space Grotesk";
@@ -97,9 +118,21 @@ input{
     background-color: #ee6d56;
     color: white;
     text-decoration: none;
-    
+    border-radius: 5px;
     text-align:center;
     height: 60px;
     width: 100%;  
     border: none;
+}
+.emaillab, .passlab {
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+button:hover{
+    filter: drop-shadow(0px 0px 5px rgb(86, 147, 238));
+}
+.pic img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }

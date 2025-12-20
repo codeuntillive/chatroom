@@ -1,5 +1,8 @@
 import React from 'react'
 import '../style/Login.css'
+import gmailIcon from '../assets/gmail.png'
+import passwordIcon from '../assets/password.png'
+import pic from '../assets/pic.png'
 function Login() {
   return (
     <div className='container'>
@@ -8,17 +11,17 @@ function Login() {
           <div className="header">Login</div>
           <form action="" className='forms'>
             <div className="input-group">
-              <label htmlFor="username">*email</label>
+              <label htmlFor="username" className='emaillab'>Gmail</label>
               <div className="cont">
-                <div>img</div>
+                <div><img src={gmailIcon} alt="" className="gmail" /></div>
                <input type="text" id='username' placeholder='Enter your email' />
               </div>
               
             </div>
             <div className="input-group">
-              <label htmlFor="password">*Password</label>
+              <label htmlFor="password"className='passlab'>Password</label>
               <div className="cont">
-                <div>img</div>
+                <div><img src={passwordIcon} alt="" className="password" /></div>
                 <input type="password" id='password' placeholder='Enter your password' />
               </div>
               <div className="forgot">Forgot Password?</div>  
@@ -30,7 +33,7 @@ function Login() {
           </form>
           
         </div>
-        <div className="pic"></div>
+        <div className="pic"><img src={pic} alt="" srcset="" className='pic'/></div>
       </div>
     </div>
   )
