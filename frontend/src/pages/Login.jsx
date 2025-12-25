@@ -1,37 +1,64 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 import '../style/Login.css'
 import gmailIcon from '../assets/gmail.png'
 import passwordIcon from '../assets/password.png'
 import pic from '../assets/pic.png'
+
 function Login() {
+  const [formData, setFormData] = useState({
+    username: '',
+    password: ''
+  })
+  const navigate = useNavigate()
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const res = await axios.post('http://localhost:3000/api/auth/login', formData, { withCredentials: true })
+      if (res.status === 200) {
+        toast.success('Logged in successfully!')
+        navigate('/dashboard')
+      }
+    } catch (err) {
+      
+      toast.error(err.response?.data || 'Login failed')
+      console.log(err)
+    }
+  }
+
   return (
     <div className='container'>
       <div className="content">
         <div className="login">
           <div className="header">Login</div>
-          <form action="" className='forms'>
+          <form action="" className='forms' onSubmit={handleSubmit}>
             <div className="input-group">
               <label htmlFor="username" className='emaillab'>Gmail</label>
               <div className="cont">
                 <div><img src={gmailIcon} alt="" className="gmail" /></div>
-               <input type="text" id='username' placeholder='Enter your email' />
+                <input type="email" id='username' name='username' placeholder='Enter your email' value={formData.username} onChange={handleChange} required />
               </div>
-              
             </div>
             <div className="input-group">
               <label htmlFor="password"className='passlab'>Password</label>
               <div className="cont">
                 <div><img src={passwordIcon} alt="" className="password" /></div>
-                <input type="password" id='password' placeholder='Enter your password' />
+                <input type="password" id='password' name='password' placeholder='Enter your password' value={formData.password} onChange={handleChange} required />
               </div>
-              <div className="forgot">Forgot Password?</div>  
+              <div className="forgot">Forgot Password?</div>
             </div>
 
             <button type='submit' className='login-btn'>Login</button>
-             <div className="or">or</div>
-        <button className='signup'>Signup</button>
+              <div className="or">or</div>
+        <button type='button' className='signup' onClick={() => navigate('/signup')}>Signup</button>
           </form>
-          
         </div>
         <div className="pic"><img src={pic} alt="" srcset="" className='pic'/></div>
       </div>

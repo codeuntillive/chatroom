@@ -65,7 +65,7 @@ router.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     // Log the message from the strategy callback
     if (info && info.message) {
-      console.log('Passport Strategy Message:', info.message);
+      return res.status(401).send(info.message);
     }
 
     if (err) {

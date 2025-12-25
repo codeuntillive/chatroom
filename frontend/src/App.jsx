@@ -3,9 +3,11 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Dashboard from './pages/db'
-import otp from './pages/otp'
+import Otp from './pages/otp'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   const [user, setUser] = useState(null)
@@ -33,11 +35,12 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home/>} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<Signup />} />
+        <Route path='/login' element={user ? <Navigate to="/dashboard"/> : <Login/>}/>
+        <Route path='/signup' element={user ? <Navigate to="/dashboard"/> : <Signup/>} />
         <Route path='/dashboard' element={user ? <Dashboard /> : <Navigate to="/login" />} />
-        <Route path="/otp" element={otp}></Route>
+        <Route path="/otp" element={<Otp />} />
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
   )
 }

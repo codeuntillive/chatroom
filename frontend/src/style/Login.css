@@ -55,7 +55,7 @@ label{
     font-size: 20px;
     font-family: "Space Grotesk";
     font-weight: 200;
-    color: rgb(92, 230, 32);
+    color: rgb(86, 147, 238);
 }
 input{
     width: 100%;
@@ -112,9 +112,9 @@ input:focus{
     text-align: center;
 }
 .signup{
-    font-size: 18px;
+    font-size: 22px;
     font-family: "Space Grotesk";
-    font-weight: 200;
+    font-weight: 400;
     background-color: #ee6d56;
     color: white;
     text-decoration: none;
@@ -128,11 +128,87 @@ input:focus{
     margin-bottom: 8px;
     font-weight: 500;
 }
-button:hover{
+button:hover:not(:disabled){
     filter: drop-shadow(0px 0px 5px rgb(86, 147, 238));
+}
+button:disabled{
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 .pic img{
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .header {
+        font-size: 80px;
+    }
+    .forms {
+        width: 70%;
+    }
+}
+
+@media (max-width: 868px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+    }
+    .content {
+        flex-direction: column;
+        width: 100%;
+    }
+    .login {
+        width: 100%;
+        height: 50vh;
+    }
+     .pic{
+        display: none;
+     }
+    .login {
+        height: auto;
+        padding: 20px;
+        justify-content: flex-start;
+    }
+    .header {
+        font-size: 60px;
+    }
+    .forms {
+        width: 90%;
+    }
+    input {
+        height: 50px;
+        font-size: 16px;
+    }
+    .login-btn, .signup {
+        height: 50px;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        font-size: 50px;
+    }
+    .forms {
+        width: 95%;
+        gap: 15px;
+    }
+    input {
+        height: 45px;
+        font-size: 15px;
+    }
+    .login-btn, .signup {
+        height: 45px;
+        font-size: 18px;
+    }
+    label {
+        font-size: 16px;
+    }
+    .login {
+        padding: 15px;
+    }
 }
