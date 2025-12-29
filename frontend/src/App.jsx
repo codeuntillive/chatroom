@@ -4,13 +4,14 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Dashboard from './pages/db'
 import Otp from './pages/otp'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import axios from 'axios'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { useStore } from './zustnd/store'
 
 function App() {
-  const [user, setUser] = useState(null)
+  const { user, setUser } = useStore()
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -21,15 +22,20 @@ function App() {
     "Cache-Control": "no-cache"
   }}
         )
-        setUser(res.data.validate)
-        console.log("User data:", res.data.validate)
+        if (res.data.validate) {
+          setUser(res.data.user)
+        } else {
+          setUser(null)
+        }
+        console.log("User data:", res.data)
       } catch (err) {
         console.log(err)
+        setUser(null)
       }
     }
 
     fetchUser()
-  }, [])
+  }, [setUser])
 
   return (
     <BrowserRouter>

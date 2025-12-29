@@ -15,6 +15,7 @@ function Signup() {
     password: '',
     profilepic: ''
   })
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
   const handleChange = (e) => {
@@ -23,6 +24,7 @@ function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setIsLoading(true)
     try {
       const res = await axios.post('http://localhost:3000/api/auth/register', formData, { withCredentials: true })
       if (res.data.validate) {
@@ -34,6 +36,8 @@ function Signup() {
     } catch (err) {
       toast.error('Error during registration')
       console.log(err)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -73,7 +77,7 @@ function Signup() {
               </div>
             </div>
 
-            <button type='submit' className='signup-btn'>Signup</button>
+            <button type='submit' className='signup-btn' disabled={isLoading}>{isLoading ? 'Signing up...' : 'Signup'}</button>
             <div className="or">or</div>
             <button type='button' className='login-link' onClick={() => navigate('/login')}>Login</button>
           </form>
