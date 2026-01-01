@@ -1,7 +1,7 @@
 // import necessary modules
 import express from 'express';
 import pg from 'pg';
-import { contacts,messages,text,img } from './controller/messageSQL.js';
+import { contacts,messages,text,img,searchUsersByEmail } from './controller/messageSQL.js';
 
 // connect to database
 const db = new pg.Client({
@@ -40,14 +40,24 @@ router.get("/messages/:userId1/:userId2", async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 });
+router.get("/searchUsers/:email", async (req, res) => {
+    const email = `%${req.params.email}%`;
+    try {
+        const result = await db.query(searchUsersByEmail, [email]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error("Error searching users:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
 router.post("/text", async (req, res) => {
-    const { senderId, receiverId, text, img } = req.body;
+    const { senderId, receiverId, textt, imgg } = req.body;
     try {
         let result;
-        if (text) {
-            result = await db.query(text, [senderId, receiverId, text]);
-        } else if (img) {
-            result = await db.query(img, [senderId, receiverId, img]);
+        if (textt) {
+            result = await db.query(text, [senderId, receiverId, textt]);
+        } else if (imgg) {
+            result = await db.query(img, [senderId, receiverId, imgg]);
         }
         res.json(result.rows[0]);
     } catch (error) {
