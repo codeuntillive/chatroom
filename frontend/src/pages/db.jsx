@@ -1,30 +1,40 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../style/Dashboard.css'
 import { useStore } from '../zustnd/store'
-import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import { toast } from 'react-toastify'
-function dashboard() {
-  const { user, setUser } = useStore()
-  const navigate = useNavigate()
+import { useUserChatsStore } from '../zustnd/userChats'
+import Profile from '../components/Profile'
+import Contacts from '../components/Contacts'
+import Chats from '../components/Chats'
+import Messages from '../components/Messages'
 
-  const handleLogout = async () => {
-    try {
-      await axios.post('http://localhost:3000/api/auth/logout', {}, { withCredentials: true })
-      setUser(null)
-      toast.success('Logged out successfully!')
-      navigate('/login')
-    } catch (err) {
-      toast.error(err.response?.data || 'Logout failed')
+function Dashboard() {
+  const { user } = useStore()
+  const { userId, setUserId, getAllcontacts, activeTab, setActiveTab } = useUserChatsStore()
+  const [searchTerm, setSearchTerm] = useState('')
+
+  useEffect(() => {
+    if (user && user.id && !userId) {
+      setUserId(user.id)
+      getAllcontacts()
     }
-  }
+  }, [user, userId, setUserId, getAllcontacts])
 
   return (
-    <div className='main'>
-      DASHBOARD
-      <button className='logout-btn' onClick={handleLogout}>Logout</button>
+    <div className='dashboard'>
+      <div className="sidebar">
+        <div className="header">
+          CONNECT
+          <Profile />
+          <div className="controls">
+            <button className={`tab-btn ${activeTab === 'chats' ? 'active' : ''}`} onClick={() => setActiveTab('chats')}>Chats</button>
+            <button className={`tab-btn ${activeTab === 'contacts' ? 'active' : ''}`} onClick={() => setActiveTab('contacts')}>Contacts</button>
+          </div>
+          {activeTab === 'contacts' ? <Contacts searchTerm={searchTerm} setSearchTerm={setSearchTerm} /> : <Chats />}
+        </div>
+      </div>
+      <Messages />
     </div>
   )
 }
 
-export default dashboard
+export default Dashboard
