@@ -16,7 +16,7 @@ export const useUserChatsStore = create((set, get) => ({
   setUserId: (id) => set({ userId: id }),
   setSelectedUser: (user) => set({ selectedUser: user }),
   setActiveTab: (tab) => set({ activeTab: tab }),
-
+  setIsUsersLoading: (isLoading) => set({ isUsersLoading: isLoading }),
   /* ===================== FETCH CONTACTS ===================== */
   getAllcontacts: async () => {
     const userId = get().userId;
@@ -26,7 +26,7 @@ export const useUserChatsStore = create((set, get) => ({
 
     try {
       const response = await fetch(
-        `http://localhost:3000/api/chats/contacts/${userId}`,
+        `http://localhost:3000/api/message/contacts/${userId}`,
         { credentials: "include" }
       );
 
@@ -49,7 +49,7 @@ export const useUserChatsStore = create((set, get) => ({
 
     try {
       const response = await fetch(
-        `http://localhost:3000/api/chats/searchUsers/${email}`,
+        `http://localhost:3000/api/message/searchUsers/${get().userId}/${email}`,
         { credentials: "include" }
       );
 
@@ -75,7 +75,7 @@ export const useUserChatsStore = create((set, get) => ({
 
     try {
       const response = await fetch(
-        `http://localhost:3000/api/chats/messages/${myUserId}/${otherUserId}`,
+        `http://localhost:3000/api/message/messages/${myUserId}/${otherUserId}`,
         { credentials: "include" }
       );
 
@@ -98,7 +98,7 @@ export const useUserChatsStore = create((set, get) => ({
     if (!senderId || !receiverId) return;
 
     try {
-      const response = await fetch("http://localhost:3000/api/chats/text", {
+      const response = await fetch("http://localhost:3000/api/message/text", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

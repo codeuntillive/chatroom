@@ -40,10 +40,11 @@ router.get("/messages/:userId1/:userId2", async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 });
-router.get("/searchUsers/:email", async (req, res) => {
+router.get("/searchUsers/:id/:email", async (req, res) => {
     const email = `%${req.params.email}%`;
+    const id = req.params.id;
     try {
-        const result = await db.query(searchUsersByEmail, [email]);
+        const result = await db.query(searchUsersByEmail, [email,id]);
         res.json(result.rows);
     } catch (error) {
         console.error("Error searching users:", error);

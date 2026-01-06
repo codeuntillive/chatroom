@@ -1,11 +1,37 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useUserChatsStore } from '../zustnd/userChats'
-
+import loading from './loading'
 function Contacts({ searchTerm, setSearchTerm }) {
-  const { allcontacts, isUsersLoading, selectedUser, setSelectedUser, getMessages } = useUserChatsStore()
+  const {
+    chats = [],
+    searchUsers,
+    isUsersLoading,
+    setIsUsersLoading,
+    selectedUser,
+    setSelectedUser,
+    getMessages
+  } = useUserChatsStore()
 
-  const filteredContacts = allcontacts.filter(contact =>
-    contact.email.toLowerCase().includes(searchTerm.toLowerCase())
+  // Fetch contacts when search term changes
+  useEffect(() => {
+    if (!searchTerm) return
+
+    const fetchContacts = async () => {
+      try {
+        setIsUsersLoading(true)
+        await searchUsers(searchTerm)
+      } catch (error) {
+        console.error('Error fetching contacts:', error)
+      } finally {
+        setIsUsersLoading(false)
+      }
+    }
+
+    fetchContacts()
+  }, [searchTerm, searchUsers, setIsUsersLoading])
+
+  const filteredContacts = chats.filter(contact =>
+    contact.email?.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
   const handleSelectContact = (contact) => {
@@ -23,8 +49,25 @@ function Contacts({ searchTerm, setSearchTerm }) {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="search-input"
         />
-        </div>
-        {/* add list */}
+      </div>
+
+      <div className="contacts-list">
+        {isUsersLoading ? (
+          <loading />
+        ) : (
+          filteredContacts.map(contact => (
+            <div
+              key={contact.id}
+              className={`contact ${
+                selectedUser?.id === contact.id ? 'active' : ''
+              }`}
+              onClick={() => handleSelectContact(contact)}
+            >
+              <p>{contact.email}</p>
+            </div>
+          ))
+        )}
+      </div>
     </>
   )
 }

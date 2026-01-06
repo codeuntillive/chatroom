@@ -9,10 +9,10 @@ import axios from 'axios'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useStore } from './zustnd/store'
-
+import {useUserChatsStore} from './zustnd/userChats'
 function App() {
   const { user, setUser } = useStore()
-
+  const { setUserId } = useUserChatsStore()
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -24,6 +24,8 @@ function App() {
         )
         if (res.data.validate) {
           setUser(res.data.user)
+          console.log("Setting userId in userChatsStore:", res.data.user.id);
+          setUserId(res.data.user.id);  
         } else {
           setUser(null)
         }

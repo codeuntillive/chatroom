@@ -201,7 +201,6 @@ router.post("/otp", async (req, res, next) => {
     ]);
 
     const newUser = { email:email,passpword:passwordHash };
-    res.send({ validate: true, message: "Registration successful" });
     req.logIn(newUser, (err) => {
       if (err) return next(err);
 

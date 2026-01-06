@@ -29,8 +29,9 @@ function Dashboard() {
             <button className={`tab-btn ${activeTab === 'chats' ? 'active' : ''}`} onClick={() => setActiveTab('chats')}>Chats</button>
             <button className={`tab-btn ${activeTab === 'contacts' ? 'active' : ''}`} onClick={() => setActiveTab('contacts')}>Contacts</button>
           </div>
-          {activeTab === 'contacts' ? <Contacts searchTerm={searchTerm} setSearchTerm={setSearchTerm} /> : <Chats />}
+          
         </div>
+        {activeTab === 'contacts' ? <Contacts searchTerm={searchTerm} setSearchTerm={setSearchTerm} /> : <Chats />}
       </div>
       <Messages />
     </div>

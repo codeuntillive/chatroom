@@ -1,19 +1,48 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useUserChatsStore } from '../zustnd/userChats'
-
+import Loading from './loading'
 function Chats() {
-  const { allcontacts, isUsersLoading, selectedUser, setSelectedUser, getMessages } = useUserChatsStore()
+  const { allcontacts, isUsersLoading, selectedUser, setSelectedUser, getMessages,setIsUsersLoading,getAllcontacts } = useUserChatsStore()
+  useEffect(()=>{
+    const data=(async()=>{
+      setIsUsersLoading(true)
+    try {
+      await getAllcontacts();
+      console.log("Contacts fetched successfully",allcontacts);
+      setIsUsersLoading(false);
+    } catch (error) {
+      console.error("Error fetching contacts:", error);
+    }
+    })
+    data()
+    
+  },[allcontacts.length])
 
   const handleSelectContact = (contact) => {
     setSelectedUser(contact)
     getMessages(contact.id)
   }
+  if (isUsersLoading) {
+    return <Loading />
+  }
+  if (allcontacts.length === 0) {
+    return <div className="no-contacts">No contacts found.</div>
+  }
+  return(
+    <div className="contact-list">
+      {allcontacts.map((contact)=>(
+        <div className="contact" key={contact.id} onClick={() => handleSelectContact(contact)}>
+          <div className="profile">P</div>
+          <div className="info">
+            <div className="name">{contact.name}</div>
+            <div className="email">{contact.email}</div>
+          </div>
+          {selectedUser && selectedUser.id === contact.id && <div className="selected-indicator">✓</div>}
+        </div>
+      ))}
 
-  return (
-    <div className="contacts-list">
-      {/* add chat list */}
     </div>
   )
+  
 }
-
 export default Chats
