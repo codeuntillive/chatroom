@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useUserChatsStore } from '../zustnd/userChats'
-import loading from './loading'
+import Loading from './loading'
 function Contacts({ searchTerm, setSearchTerm }) {
   const {
     chats = [],
@@ -36,7 +36,7 @@ function Contacts({ searchTerm, setSearchTerm }) {
 
   const handleSelectContact = (contact) => {
     setSelectedUser(contact)
-    getMessages(contact.id)
+    getMessages()
   }
 
   return (
@@ -53,10 +53,10 @@ function Contacts({ searchTerm, setSearchTerm }) {
 
       <div className="contacts-list">
         {isUsersLoading ? (
-          <loading />
+          <Loading />
         ) : (
           filteredContacts.map(contact => (
-            <div
+            <div style={{cursor:"pointer"}}
               key={contact.id}
               className={`contact ${
                 selectedUser?.id === contact.id ? 'active' : ''

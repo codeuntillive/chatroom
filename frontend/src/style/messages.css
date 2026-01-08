@@ -1,0 +1,103 @@
+.messages{
+    margin: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 95%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+p{
+    margin: auto;
+    font-size: 1.5rem;
+    color: #000000;
+}
+.header-message{
+    height: 60px;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    justify-content: space-between;
+}
+.detail-message{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.name{
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.control-messages{
+    font-size: 1.5rem;
+    cursor: pointer;
+    font-weight: bolder;
+}
+.message-content{
+    flex: 0 0 90%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto;
+    scrollbar-width: thin;    
+  
+}
+::-webkit-scrollbar-thumb{
+    background-color: rgba(0, 0, 0, 0.1);
+    
+}
+::-webkit-scrollbar:hover{
+    background-color: rgb(70, 164, 30);
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar{
+    width: 0px;
+}
+
+.sender{
+    align-self: flex-end;
+    background-color: #61ae42;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px;
+    max-width: 60%;
+    word-wrap: break-word;
+}
+.message-box{
+    font-size: larger;
+    font-weight: bold;
+}
+.receiver{
+    align-self: flex-start;
+    background-color: #f1f1f1;
+    color: black;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px;
+    max-width: 60%;
+    word-wrap: break-word;
+}
+.message-content {
+    flex: 0 0 90%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto;
+
+    
+   
+}
+
+
+
+/* Track */
+.message-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+

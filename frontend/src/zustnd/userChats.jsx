@@ -67,8 +67,9 @@ export const useUserChatsStore = create((set, get) => ({
   },
 
   /* ===================== FETCH MESSAGES ===================== */
-  getMessages: async (otherUserId) => {
+  getMessages: async () => {
     const myUserId = get().userId;
+    const otherUserId = get().selectedUser?.id;
     if (!myUserId || !otherUserId) return;
 
     set({ isMessagesLoading: true });
@@ -107,8 +108,8 @@ export const useUserChatsStore = create((set, get) => ({
         body: JSON.stringify({
           senderId,
           receiverId,
-          textt: text,
-          imgg: img,
+          textt: text||null,
+          imgg: img||null,
         }),
       });
 
