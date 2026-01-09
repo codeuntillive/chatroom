@@ -1,0 +1,17 @@
+{
+  "name": "socket.io_basic",
+  "version": "1.0.0",
+  "description": "**to learn basics of socket.io used in chatroom for basic knowledge of socket+passport**\r Below is a **very detailed, step-by-step explanation** of your code.\r I’ll explain **what Socket.IO is**, **why it is used**, and then **each line / function** in simple but **deep technical terms**, so you fully understand *what is happening and why*.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "express": "^5.2.1",
+    "socket.io": "^4.8.3"
+  }
+}
