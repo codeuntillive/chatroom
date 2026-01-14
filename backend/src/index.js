@@ -5,14 +5,14 @@ import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-import session from "express-session";
 import path from "path";
 import authRouter from "./auth.js";
 import { checkauth } from "./auth.js";
 import messageRouter from "./message.js";
+import {app,server} from './socket.js';
+import { sessionMiddleware } from './sessionConfig.js';
 dotenv.config();
 
-const app = express();
 app.use(cors({
   origin: "http://localhost:5173",
   credentials: true,
@@ -22,12 +22,8 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(session({
-  secret: 'the secret key',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } 
-}));
+
+app.use(sessionMiddleware);
 
 // Passport
 app.use(passport.initialize());
@@ -53,6 +49,6 @@ if(process.env.NODE_ENV === 'production'){
 
 
 
-app.listen(process.env.PORT, () => {
+server.listen(process.env.PORT, () => {
   console.log("Server is running on port 3000");
 });

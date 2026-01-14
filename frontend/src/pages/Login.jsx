@@ -72,7 +72,7 @@ function Login() {
         <button type='button' className='signup' onClick={() => navigate('/signup')}>Signup</button>
           </form>
         </div>
-        <div className="pic"><img src={pic} alt="" srcset="" className='pic'/></div>
+        <div className="pic"><img src={pic} alt="" srcSet="" className='pic'/></div>
       </div>
     </div>
   )

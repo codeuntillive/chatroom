@@ -11,9 +11,10 @@ import 'react-toastify/dist/ReactToastify.css'
 import { useStore } from './zustnd/store'
 import {useUserChatsStore} from './zustnd/userChats'
 function App() {
-  const { user, setUser } = useStore()
+  const { user, setUser,connectSocket,socket,onlineUsers,getOnlineUsers } = useStore()
   const { setUserId } = useUserChatsStore()
   useEffect(() => {
+    
     const fetchUser = async () => {
       try {
         const res = await axios.get(
@@ -23,9 +24,12 @@ function App() {
   }}
         )
         if (res.data.validate) {
+          connectSocket();
+          getOnlineUsers();
+          console.log(onlineUsers);
           setUser(res.data.user)
           console.log("Setting userId in userChatsStore:", res.data.user.id);
-          setUserId(res.data.user.id);  
+          setUserId(res.data.user.id);
         } else {
           setUser(null)
         }
@@ -38,6 +42,9 @@ function App() {
 
     fetchUser()
   }, [setUser])
+  useEffect(() => {
+    console.log("Socket or onlineUsers changed:", onlineUsers);
+  }, [socket, onlineUsers]);
 
   return (
     <BrowserRouter>

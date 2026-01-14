@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useUserChatsStore } from '../zustnd/userChats'
 import Loading from './loading'
 function Chats() {
-  const { allcontacts, isUsersLoading, selectedUser, setSelectedUser, getMessages,setIsUsersLoading,getAllcontacts } = useUserChatsStore()
+  const { allcontacts, isUsersLoading, selectedUser, setSelectedUser, getMessages,setIsUsersLoading,getAllcontacts, userId } = useUserChatsStore()
   useEffect(()=>{
     const data=(async()=>{
       setIsUsersLoading(true)
@@ -15,8 +15,8 @@ function Chats() {
     }
     })
     data()
-    
-  },[allcontacts.length])
+
+  },[])
 
   const handleSelectContact = (contact) => {
     setSelectedUser(contact)
@@ -25,7 +25,7 @@ function Chats() {
   if (isUsersLoading) {
     return <Loading />
   }
-  if (allcontacts.length === 0) {
+  if (!Array.isArray(allcontacts) || allcontacts.length === 0) {
     return <div className="no-contacts">No contacts found.</div>
   }
   return(
