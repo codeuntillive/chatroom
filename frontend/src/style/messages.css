@@ -36,13 +36,13 @@ p{
     font-weight: bolder;
 }
 .message-content{
-    flex: 0 0 90%;
+    flex: 1;
     display: flex;
     flex-direction: column;
     padding: 20px;
     overflow-y: auto;
-    scrollbar-width: thin;    
-  
+    scrollbar-width: thin;
+
 }
 ::-webkit-scrollbar-thumb{
     background-color: rgba(0, 0, 0, 0.1);
@@ -72,18 +72,8 @@ p{
     font-size: larger;
     font-weight: bold;
 }
-.receiver{
-    align-self: flex-start;
-    background-color: #f1f1f1;
-    color: black;
-    padding: 10px;
-    border-radius: 10px;
-    margin: 5px;
-    max-width: 60%;
-    word-wrap: break-word;
-}
 .message-content {
-    flex: 0 0 90%;
+    flex: 0 0 80%;
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -92,9 +82,28 @@ p{
     
    
 }
+textarea{
+    width: 80%;
+    
+    max-height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1.2rem;
+    color: #333;
+    resize: none;
+    overflow: auto;
+    scrollbar-width: none;
+    
+}
 
-
-
+.input-message{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30%;
+   
+}
 /* Track */
 .message-content::-webkit-scrollbar-track {
     background: transparent;

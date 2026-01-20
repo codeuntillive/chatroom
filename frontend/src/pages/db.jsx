@@ -8,7 +8,7 @@ import Chats from '../components/Chats'
 import Messages from '../components/Messages'
 
 function Dashboard() {
-  const { user } = useStore()
+  const { user, connectSocket } = useStore()
   const { userId, setUserId, getAllcontacts, activeTab, setActiveTab } = useUserChatsStore()
   const [searchTerm, setSearchTerm] = useState('')
 
@@ -18,6 +18,12 @@ function Dashboard() {
       getAllcontacts()
     }
   }, [user, userId, setUserId, getAllcontacts])
+
+  useEffect(() => {
+    if (user) {
+      connectSocket()
+    }
+  }, [user, connectSocket])
 
   return (
     <div className='dashboard'>

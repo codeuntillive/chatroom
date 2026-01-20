@@ -13,8 +13,6 @@ const io = new Server(server,{
       }
 });
 
-
-
 function onlyForHandshake(middleware) {
   return (req, res, next) => {
     const isHandshake = req._query.sid === undefined;
@@ -39,6 +37,10 @@ io.engine.use(
     }
   }),
 );
+// check user is live or not
+export const get_scoket_id =(userid)=>{
+    return userSocketMap[userid];
+}
 // to store  user
 const userSocketMap = {};
 const userMap = {};

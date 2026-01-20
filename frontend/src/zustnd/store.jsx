@@ -1,5 +1,5 @@
 import {create} from 'zustand';
-
+import {useUserChatsStore} from './userChats';
 export const useStore = create((set,get) => ({
   user: null,
   socket: null,
@@ -7,10 +7,28 @@ export const useStore = create((set,get) => ({
   setUser: (user) => set({ user }),
   setSocket: (socket) => set({ socket }),
   connectSocket: async () => {
-      if (!get().user) return;
+      if (!get().user) {
+          console.log("connectSocket: No user, skipping connection");
+          return;
+      }
+      if (get().socket) {
+          console.log("connectSocket: Socket already connected");
+          return;
+      }
+      console.log("connectSocket: Attempting to connect socket for user:", get().user.id);
       const { io } = await import('socket.io-client');
       const socket = io('http://localhost:3000', {
           withCredentials: true,
+      });
+      socket.on('connect', () => {
+          console.log("Socket connected successfully");
+      });
+      socket.on('connect_error', (error) => {
+          console.log("Socket connection error:", error);
+      });
+      socket.on("message", (data) => {
+          console.log("Received message:", data);
+          useUserChatsStore.getState().addMessage(data);
       });
       socket.connect();
       set({ socket });

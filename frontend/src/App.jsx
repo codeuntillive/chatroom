@@ -14,7 +14,7 @@ function App() {
   const { user, setUser,connectSocket,socket,onlineUsers,getOnlineUsers } = useStore()
   const { setUserId } = useUserChatsStore()
   useEffect(() => {
-    
+    console.log("App useEffect: Fetching user on mount");
     const fetchUser = async () => {
       try {
         const res = await axios.get(
@@ -24,18 +24,19 @@ function App() {
   }}
         )
         if (res.data.validate) {
-          connectSocket();
+          console.log("App fetchUser: User validated");
           getOnlineUsers();
           console.log(onlineUsers);
           setUser(res.data.user)
           console.log("Setting userId in userChatsStore:", res.data.user.id);
           setUserId(res.data.user.id);
         } else {
+          console.log("App fetchUser: User not validated");
           setUser(null)
         }
         console.log("User data:", res.data)
       } catch (err) {
-        console.log(err)
+        console.log("App fetchUser: Error fetching user", err)
         setUser(null)
       }
     }

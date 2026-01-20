@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import io from 'socket.io-client';
 
 export const useUserChatsStore = create((set, get) => ({
   /* ===================== STATE ===================== */
@@ -8,6 +9,7 @@ export const useUserChatsStore = create((set, get) => ({
   messages: [],
   activeTab: "chats",
   selectedUser: null,
+  socket: null,
 
   isUsersLoading: false,
   isMessagesLoading: false,
@@ -124,6 +126,12 @@ export const useUserChatsStore = create((set, get) => ({
     } catch (error) {
       console.error("Send message error:", error);
     }
+  },
+
+  /* ===================== ADD MESSAGE ===================== */
+  addMessage: (message) => {
+    const currentMessages = get().messages;
+    set({ messages: [...currentMessages, message] });
   },
 
   /* ===================== RESET (LOGOUT) ===================== */
