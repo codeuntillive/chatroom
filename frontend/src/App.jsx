@@ -10,6 +10,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useStore } from './zustnd/store'
 import {useUserChatsStore} from './zustnd/userChats'
+import {Intro} from "./GSAP/intro"
 function App() {
   const { user, setUser,connectSocket,socket,onlineUsers,getOnlineUsers } = useStore()
   const { setUserId } = useUserChatsStore()
@@ -55,6 +56,7 @@ function App() {
         <Route path='/signup' element={user ? <Navigate to="/dashboard"/> : <Signup/>} />
         <Route path='/dashboard' element={user ? <Dashboard /> : <Navigate to="/login" />} />
         <Route path="/otp" element={<Otp />} />
+        <Route path='/gsap' element={<Intro/>}/>
       </Routes>
       <ToastContainer />
     </BrowserRouter>

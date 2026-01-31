@@ -1,202 +1,114 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
-body, html {
-  margin: 0;
-  padding: 0;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+* {
   box-sizing: border-box;
-  font-family: 'Space Grotesk', sans-serif;
-  scrollbar-width: none; /* Firefox */
+  font-family: 'Inter', sans-serif;
 }
-.container {
-  width: 100%;
-  height: 100vh;
+
+.auth-wrapper {
+  min-height: 100vh;
+  background: #0e0f11;
   display: flex;
-  justify-content: center;
   align-items: center;
-  background-color: rgb(249, 249, 249);
-  
-}
-.content{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 100%;
-}
-.signup-form{
-    background-color: rgb(255, 255, 255);
-    width: 50%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.pic{
-    background-color: coral;
-    width: 50%;
-    height: 100%;
-}
-.input-group{
-    display: flex;
-    flex-direction: column;
-}
-.header{
-    font-size: 70px;
-    font-family: "Space Grotesk";
-    font-weight: 700;
-}
-.forms{
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 0;
-    width: 60%;
-}
-label{
-    font-size: 18px;
-    font-family: "Space Grotesk";
-    font-weight: 200;
-    color: rgb(86, 147, 238);
-}
-input{
-    width: 100%;
-    height: 50px;
-    padding: 5px;
-    font-size: 16px;
-    font-family: "Space Grotesk";
-    border: 2px solid rgb(195, 195, 195);
-    border-radius: 5px;
-    transition: ease-in-out 0.3s;
-}
-input:focus{
-    outline: none;
-    border: 2px solid rgb(86, 147, 238);
-    filter: drop-shadow(0px 0px 5px rgb(86, 147, 238));
-}
-.signup-btn{
-
-    width: 100%;
-    height: 50px;
-    background-color: rgb(86, 147, 238);
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 20px;
-    font-family: "Space Grotesk";
-    cursor: pointer;
-}
-.cont{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-}
-.gmail, .password, .user, .profile {
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
+  justify-content: center;
 }
 
-.or{
-     font-size: 18px;
-    font-family: "Space Grotesk";
-    font-weight: 100;
-    color: gray;
-    text-align: center;
-}
-.login-link{
-    font-size: 20px;
-    font-family: "Space Grotesk";
-    font-weight: 400;
-    background-color: #ee6d56;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    text-align:center;
-    height: 50px;
-    width: 100%;
-    border: none;
-}
-.emaillab, .passlab, .namelab, .piclab {
-    margin-bottom: 8px;
-    font-weight: 500;
-}
-button:hover{
-    filter: drop-shadow(0px 0px 5px rgb(86, 147, 238));
-}
-.pic img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.auth-card {
+  width: 400px;
+  background: #16181d;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .header {
-        font-size: 70px;
-    }
-    .forms {
-        width: 70%;
-    }
+.auth-title {
+  color: #fff;
+  font-size: 28px;
+  margin-bottom: 6px;
 }
 
-@media (max-width: 868px) {
-    .container {
-        flex-direction: column;
-        height: auto;
-        min-height: 100vh;
-    }
-    .content {
-        flex-direction: column;
-        width: 100%;
-    }
-    .signup-form {
-        width: 100%;
-        height: 50vh;
-    }
-     .pic{
-        display: none;
-     }
-    .signup-form {
-        height: auto;
-        padding: 20px;
-        justify-content: flex-start;
-    }
-    .header {
-        font-size: 60px;
-    }
-    .forms {
-        width: 90%;
-    }
-    input {
-        height: 50px;
-        font-size: 16px;
-    }
-    .signup-btn, .login-link {
-        height: 50px;
-        font-size: 20px;
-    }
+.auth-subtitle {
+  color: #9da3ae;
+  font-size: 14px;
+  margin-bottom: 28px;
 }
 
+.auth-form label {
+  font-size: 13px;
+  color: #bfc4ce;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.auth-input {
+  display: flex;
+  align-items: center;
+  background: #1f2229;
+  border-radius: 10px;
+  padding: 0 12px;
+  margin-bottom: 18px;
+  border: 1px solid #2a2e36;
+}
+
+.auth-input img {
+  width: 18px;
+  opacity: 0.6;
+}
+
+.auth-input input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 14px 10px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.auth-input input::placeholder {
+  color: #7b8190;
+}
+
+.auth-btn {
+  width: 100%;
+  height: 48px;
+  background: #c8ff00;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.auth-btn:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.auth-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-footer {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 13px;
+  color: #9da3ae;
+}
+
+.auth-link {
+  margin-left: 6px;
+  background: none;
+  border: none;
+  color: #c8ff00;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Mobile */
 @media (max-width: 480px) {
-    .header {
-        font-size: 50px;
-    }
-    .forms {
-        width: 95%;
-        gap: 15px;
-    }
-    input {
-        height: 45px;
-        font-size: 15px;
-    }
-    .signup-btn, .login-link {
-        height: 45px;
-        font-size: 18px;
-    }
-    label {
-        font-size: 16px;
-    }
-    .signup-form {
-        padding: 15px;
-    }
+  .auth-card {
+    width: 92%;
+  }
 }

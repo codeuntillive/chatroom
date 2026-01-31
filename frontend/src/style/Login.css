@@ -1,214 +1,293 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
-body, html {
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+/* =========================
+   GLOBAL RESET
+========================= */
+
+* {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+html, body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: 'Space Grotesk', sans-serif;
-  scrollbar-width: none; /* Firefox */
-}
-.container {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(249, 249, 249);
+  background: #0e0f11;
+  overflow-x: hidden;
   
 }
-.content{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 100%;
+
+/* =========================
+   AUTH PAGE
+========================= */
+
+.auth-wrapper {
+  min-height: calc(100vh - 88px); /* desktop navbar height */
+  background: #0e0f11;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 40px;
 }
-.login{
-    background-color: rgb(255, 255, 255);
-    width: 50%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;    
+
+.auth-card {
+  width: 380px;
+  background: #16181d;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
 }
-.pic{
-    background-color: coral;
-    width: 50%;
-    height: 100%;
+
+.auth-title {
+  color: #fff;
+  font-size: 28px;
+  margin-bottom: 6px;
 }
-.input-group{
-    display: flex;
-    flex-direction: column;
+
+.auth-subtitle {
+  color: #9da3ae;
+  font-size: 14px;
+  margin-bottom: 28px;
 }
-.header{
-    font-size: 91px;
-    font-family: "Space Grotesk";
-    font-weight: 700;
+
+.auth-form label {
+  font-size: 13px;
+  color: #bfc4ce;
+  margin-bottom: 6px;
+  display: block;
 }
-.forms{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin-top: 0;
-    width: 60%;
+
+.auth-input {
+  display: flex;
+  align-items: center;
+  background: #1f2229;
+  border-radius: 10px;
+  padding: 0 12px;
+  margin-bottom: 18px;
+  border: 1px solid #2a2e36;
 }
-label{
-    font-size: 20px;
-    font-family: "Space Grotesk";
-    font-weight: 200;
-    color: rgb(86, 147, 238);
+
+.auth-input img {
+  width: 18px;
+  opacity: 0.6;
 }
-input{
-    width: 100%;
-    height: 60px;
-    padding: 5px;
-    font-size: 18px;
-    font-family: "Space Grotesk";
-    border: 2px solid rgb(195, 195, 195);
-    border-radius: 5px;
-    transition: ease-in-out 0.3s;
+
+.auth-input input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 14px 10px;
+  color: #fff;
+  font-size: 14px;
 }
-input:focus{
-    outline: none;
-    border: 2px solid rgb(86, 147, 238);
-    filter: drop-shadow(0px 0px 5px rgb(86, 147, 238));
+
+.auth-input input::placeholder {
+  color: #7b8190;
 }
-.login-btn{
+
+.auth-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  margin-bottom: 24px;
+  color: #9da3ae;
+}
+
+.auth-options input {
+  margin-right: 6px;
+}
+
+.forgot {
+  color: #c8ff00;
+  cursor: pointer;
+}
+
+.auth-btn {
+  width: 100%;
+  height: 48px;
+  background: #c8ff00;
+  border: none;
+  border-radius: 12px;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #0e0f11;
+}
+
+.auth-btn:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.auth-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================
+   NAVBAR (LIQUID GLASS)
+========================= */
+
+.nav {
+  width: min(90vw, 1100px);
+  margin-inline: auto;
+  margin-top: 1rem;        
+  border-radius: 18px;
+  background: rgba(32, 32, 32, 0.42);
+  backdrop-filter: blur(10px);
+  
+  top: 1rem;
+  z-index: 50;
+  overflow: visible;
+
+}
+
+nav {
+  height: 70px;
+  padding: 0 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+}
+
+/* logo */
+.logo-name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo {
+  font-size: 1.2rem;
+  color: white;
+}
+
+.nav-name {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 700;
+  color: white;
+}
+
+/* right side */
+.nav-detail {
+  display: flex;
+  align-items: center;
+}
+
+.start-btn {
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  background: white;
+  color: black;
+  font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+.menu-btn {
+  margin-left: 0.6rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+  display: grid;
+  place-items: center;
+  border: none;
+  cursor: pointer;
+}
+
+.menu-btn img {
+  width: 20px;
+  height: 20px;
+  filter: invert(1);
+}
+
+/* =========================
+   SLIDE MENU
+========================= */
+
+.menu-panel {
+  position: absolute;
+  top: calc(70px + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(92vw, 1150px);
+  padding: 1.5rem;
+  background: rgba(32, 32, 32, 0.48);
+  backdrop-filter: blur(50px);
+  border-radius: 22px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.95);
+  z-index: 40;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* =========================
+   MENU CARDS
+========================= */
+
+
+
+.menu-card:hover {
+  transform: translateY(-4px);
+}
+
+.menu-card h3 {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  margin-bottom: 0.9rem;
+}
+
+.menu-card p {
+  font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+  opacity: 0.9;
+}
+
+.menu-card p:hover {
+  opacity: 1;
+}
+@media (max-width: 968px) {
+  .menu-panel {
+    grid-template-columns: 1fr;
+    width: calc(100vw - 2rem);
+    padding: 1.2rem;
     
-    width: 100%;
-    height: 60px;
-    background-color: rgb(86, 147, 238);
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 24px;
-    font-family: "Space Grotesk";
-    cursor: pointer;
-}
-.cont{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  }
 
+  nav {
+    height: 64px;
+  }
 }
-.gmail, .password {
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
+/* =========================
+   OTP BOXES
+========================= */
+
+.otp-boxes {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 20px 0 28px;
 }
 
-.forgot{
-    font-size: 18px;
-    font-family: "Space Grotesk";
-    font-weight: 200;
-    color: rgb(255, 47, 47);
-    text-decoration: none;
-    margin: 5px;
-    text-align: right;}
-.or{
-     font-size: 18px;
-    font-family: "Space Grotesk";
-    font-weight: 100;
-    color: gray;
-    text-align: center;
-}
-.signup{
-    font-size: 22px;
-    font-family: "Space Grotesk";
-    font-weight: 400;
-    background-color: #ee6d56;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    text-align:center;
-    height: 60px;
-    width: 100%;  
-    border: none;
-}
-.emaillab, .passlab {
-    margin-bottom: 8px;
-    font-weight: 500;
-}
-button:hover:not(:disabled){
-    filter: drop-shadow(0px 0px 5px rgb(86, 147, 238));
-}
-button:disabled{
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-.pic img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.otp-input {
+  width: 48px;
+  height: 56px;
+  background: #1f2229;
+  border: 1px solid #2a2e36;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+  outline: none;
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .header {
-        font-size: 80px;
-    }
-    .forms {
-        width: 70%;
-    }
-}
-
-@media (max-width: 868px) {
-    .container {
-        flex-direction: column;
-        height: auto;
-        min-height: 100vh;
-    }
-    .content {
-        flex-direction: column;
-        width: 100%;
-    }
-    .login {
-        width: 100%;
-        height: 50vh;
-    }
-     .pic{
-        display: none;
-     }
-    .login {
-        height: auto;
-        padding: 20px;
-        justify-content: flex-start;
-    }
-    .header {
-        font-size: 60px;
-    }
-    .forms {
-        width: 90%;
-    }
-    input {
-        height: 50px;
-        font-size: 16px;
-    }
-    .login-btn, .signup {
-        height: 50px;
-        font-size: 20px;
-    }
-}
-
-@media (max-width: 480px) {
-    .header {
-        font-size: 50px;
-    }
-    .forms {
-        width: 95%;
-        gap: 15px;
-    }
-    input {
-        height: 45px;
-        font-size: 15px;
-    }
-    .login-btn, .signup {
-        height: 45px;
-        font-size: 18px;
-    }
-    label {
-        font-size: 16px;
-    }
-    .login {
-        padding: 15px;
-    }
+.otp-input:focus {
+  border-color: #c8ff00;
+  box-shadow: 0 0 0 2px rgba(200, 255, 0, 0.15);
 }

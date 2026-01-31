@@ -7,6 +7,7 @@ import gmailIcon from '../assets/gmail.png'
 import passwordIcon from '../assets/password.png'
 import pic from '../assets/pic.png'
 import { useStore } from '../zustnd/store'
+import Navbar from '../components/navbar'
 
 function Login() {
   const { setUser } = useStore()
@@ -46,36 +47,67 @@ function Login() {
   }
 
   return (
-    <div className='container'>
-      <div className="content">
-        <div className="login">
-          <div className="header">Login</div>
-          <form action="" className='forms' onSubmit={handleSubmit}>
-            <div className="input-group">
-              <label htmlFor="username" className='emaillab'>Gmail</label>
-              <div className="cont">
-                <div><img src={gmailIcon} alt="" className="gmail" /></div>
-                <input type="email" id='username' name='username' placeholder='Enter your email' value={formData.username} onChange={handleChange} required />
-              </div>
-            </div>
-            <div className="input-group">
-              <label htmlFor="password"className='passlab'>Password</label>
-              <div className="cont">
-                <div><img src={passwordIcon} alt="" className="password" /></div>
-                <input type="password" id='password' name='password' placeholder='Enter your password' value={formData.password} onChange={handleChange} required />
-              </div>
-              <div className="forgot">Forgot Password?</div>
-            </div>
+  <div className=''>            
+  <Navbar/>
+  <div className="auth-wrapper">
+    
+    <div className="auth-card">
+      <h1 className="auth-title">Welcome Back</h1>
+      <p className="auth-subtitle">
+        Sign in to your secure messaging account
+      </p>
 
-            <button type='submit' className='login-btn' disabled={isLoading}>{isLoading ? 'Logging in...' : 'Login'}</button>
-              <div className="or">or</div>
-        <button type='button' className='signup' onClick={() => navigate('/signup')}>Signup</button>
-          </form>
+      <form className="auth-form" onSubmit={handleSubmit}>
+        {/* Email */}
+        <label>Email Address</label>
+        <div className="auth-input">
+          <img src={gmailIcon} alt="email" />
+          <input
+            type="email"
+            name="username"
+            placeholder="you@example.com"
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
         </div>
-        <div className="pic"><img src={pic} alt="" srcSet="" className='pic'/></div>
-      </div>
+
+        {/* Password */}
+        <label>Password</label>
+        <div className="auth-input">
+          <img src={passwordIcon} alt="password" />
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter your password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        {/* Options */}
+        
+
+        <button className="auth-btn " disabled={isLoading}>
+          {isLoading ? 'Logging in...' : 'Log In →'}
+        </button>
+        <div className="auth-footer">
+          <span>don't have an account?</span>
+          <button
+            type="button"
+            className="auth-link"
+            onClick={() => navigate('/signup')}
+          >
+            Signup
+          </button>
+        </div>
+      </form>
     </div>
-  )
+  </div>
+  </div>
+)
+
 }
 
 export default Login

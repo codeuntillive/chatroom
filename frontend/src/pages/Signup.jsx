@@ -7,6 +7,7 @@ import gmailIcon from '../assets/gmail.png'
 import passwordIcon from '../assets/password.png'
 import pic from '../assets/pic.png'
 import profileIcon from '../assets/profile.png'
+import Navbar from '../components/navbar'
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -42,49 +43,90 @@ function Signup() {
   }
 
   return (
-    <div className='container'>
-      <div className="content">
-        <div className="signup-form">
-          <div className="header">Signup</div>
-          <form action="" className='forms' onSubmit={handleSubmit}>
-            <div className="input-group">
-              <label htmlFor="fullname" className='namelab'>Full Name</label>
-              <div className="cont">
-                <div><img src={profileIcon} alt="" className="profile" /></div>
-                <input type="text" id='fullname' name='fullname' placeholder='Enter your full name' value={formData.fullname} onChange={handleChange} required />
-              </div>
-              
-            </div>
-            <div className="input-group">
-              <label htmlFor="email" className='emaillab'>Gmail</label>
-              <div className="cont">
-                <div><img src={gmailIcon} alt="" className="gmail" /></div>
-                <input type="email" id='email' name='email' placeholder='Enter your email' value={formData.email} onChange={handleChange} required />
-              </div>
-            </div>
-            <div className="input-group">
-              <label htmlFor="password" className='passlab'>Password</label>
-              <div className="cont">
-                <div><img src={passwordIcon} alt="" className="password" /></div>
-                <input type="password" id='password' name='password' placeholder='Enter your password' value={formData.password} onChange={handleChange} required />
-              </div>
-            </div>
-            <div className="input-group">
-              <label htmlFor="profilepic" className='piclab'>Profile Picture URL</label>
-              <div className="cont">
-                
-                <input type="text" id='profilepic' name='profilepic' placeholder='Enter profile picture URL' value={formData.profilepic} onChange={handleChange} required />
-              </div>
-            </div>
+    <div>
+    <Navbar></Navbar>
+  <div className="auth-wrapper">
+    <div className="auth-card">
+      <h1 className="auth-title">Create Account</h1>
+      <p className="auth-subtitle">
+        Sign up to start secure messaging
+      </p>
 
-            <button type='submit' className='signup-btn' disabled={isLoading}>{isLoading ? 'Signing up...' : 'Signup'}</button>
-            <div className="or">or</div>
-            <button type='button' className='login-link' onClick={() => navigate('/login')}>Login</button>
-          </form>
+      <form className="auth-form" onSubmit={handleSubmit}>
+        {/* Full Name */}
+        <label>Full Name</label>
+        <div className="auth-input">
+          <img src={profileIcon} alt="name" />
+          <input
+            type="text"
+            name="fullname"
+            placeholder="Your full name"
+            value={formData.fullname}
+            onChange={handleChange}
+            required
+          />
         </div>
-        <div className="pic"><img src={pic} alt="" srcset="" className='pic'/></div>
-      </div>
+
+        {/* Email */}
+        <label>Email Address</label>
+        <div className="auth-input">
+          <img src={gmailIcon} alt="email" />
+          <input
+            type="email"
+            name="email"
+            placeholder="you@example.com"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        {/* Password */}
+        <label>Password</label>
+        <div className="auth-input">
+          <img src={passwordIcon} alt="password" />
+          <input
+            type="password"
+            name="password"
+            placeholder="Create a password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        {/* Profile Pic */}
+        <label>Profile Picture URL</label>
+        <div className="auth-input">
+          <img src={profileIcon} alt="profile" />
+          <input
+            type="text"
+            name="profilepic"
+            placeholder="https://image.url"
+            value={formData.profilepic}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <button className="auth-btn" disabled={isLoading}>
+          {isLoading ? 'Creating account...' : 'Sign Up →'}
+        </button>
+
+        <div className="auth-footer">
+          <span>Already have an account?</span>
+          <button
+            type="button"
+            className="auth-link"
+            onClick={() => navigate('/login')}
+          >
+            Login
+          </button>
+        </div>
+      </form>
     </div>
+  </div>
+  </div>
   )
 }
 
