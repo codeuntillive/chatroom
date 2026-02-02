@@ -7,6 +7,7 @@
     box-sizing:border-box;
     text-decoration: none;
     list-style: none;
+    
 }
 html {
   scroll-behavior: smooth;
@@ -15,7 +16,12 @@ html {
 html, body {
   margin: 0;
   padding: 0;
-  background: #0e0f11;
+  background: radial-gradient(circle at top, #111, #000);
+  color: white;
+  margin: 0;
+  padding: 0;
+  overflow-y: visible;
+  overflow-x: hidden;
   
 }
 

@@ -12,7 +12,7 @@ function Messages() {
   const messagesEndRef = useRef(null)
   const socketRef = useRef(null)
   console.log("Selected User in Messages:", selectedUser)
-
+  const textarea = useRef(null)
 
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -45,6 +45,7 @@ function Messages() {
 
   const handleSendMessage = () => {
     if (newMessage.trim() && selectedUser) {
+      textarea.current.style.height = 'auto';
       sendMessage(selectedUser.id, newMessage)
       setNewMessage('')
     }
@@ -57,7 +58,7 @@ function Messages() {
     )
   }
   if (isMessagesLoading) {
-    return <Loading />
+    return <div className='w-[100%] h-[100%] flex justify-center items-center'><div className=' text-3xl text-green-600'>Loading....</div></div>
   } else {
     console.log("Messages:", messages)
   }
@@ -68,7 +69,9 @@ function Messages() {
     <div className="messages">
       <div className="header-message">
         <div className="detail-message">
-          <img src={profile} alt="" width={'40px'} />
+          <div className="profile-avatar">
+            {selectedUser?.fullname?.charAt(0).toUpperCase() || 'U'}
+          </div>
           <div className="info">
             <div className="name">{selectedUser?.fullname}</div>
             <div className="email">{selectedUser?.email}</div>
@@ -81,39 +84,44 @@ function Messages() {
       <div className="message-content" ref={messagesEndRef}>
         {messages.map((msg) =>
           msg.sender_id !== userId ? (
-            <div className="chat chat-start">
-              <div className="chat-image avatar">
-                <div className="w-10 rounded-full">
-                  <img
-                    alt="Tailwind CSS chat bubble component"
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                  />
-                </div>
-              </div>
+            <div>
               <div class="chat-header">
-                  <span className='mx-2'> {selectedUser.fullname}</span>
-              <time class="text-xs opacity-50">{(msg.datetime).split('T')[0]}  {(msg.datetime).split('T')[1].slice(0, 8)}</time>
-                  
+                <span className='mx-2'> {selectedUser.fullname}</span>
+                <time class="text-xs opacity-50">{(msg.datetime).split('T')[0]}  {(msg.datetime).split('T')[1].slice(0, 8)}</time>
+
+              </div>
+              <div className="chat chat-start">
+                <div className="chat-image avatar">
+                  <div className="w-10 rounded-full">
+
+                    <div className="profile-avatar">
+                      {selectedUser?.fullname?.charAt(0).toUpperCase() || 'U'}
+                    </div>
+                  </div>
                 </div>
-              <div className="chat-bubble whitespace-pre-wrap bg-blue-700 text-xl">{msg.text}</div>
+
+                <div className="chat-bubble whitespace-pre-wrap bg-blue-700 text-xl">{msg.text}</div>
+              </div>
             </div>
           ) : (
-            <div className="chat chat-end">
-              <div className="chat-image avatar">
-                <div className="w-10 rounded-full">
-                  <img
-                    alt="Tailwind CSS chat bubble component"
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                  />
+            <div className=' flex flex-col '>
+              <div class="chat-header flex justify-end">
+                <time class="text-xs opacity-50">{(msg.datetime).split('T')[0]}  {(msg.datetime).split('T')[1].slice(0, 8)}</time>
+                <span className='mx-2'> {user.fullname}</span>
+
+              </div>
+              <div className="chat chat-end ">
+
+
+                <div className="chat-bubble whitespace-pre-wrap bg-green-700 text-xl">{msg.text}</div>
+                <div className="chat-image avatar">
+                  <div className="w-10 rounded-full">
+                    <div className="profile-avatar">
+                      {user?.fullname?.charAt(0).toUpperCase() || 'U'}
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="chat-header">
-                <time class="text-xs opacity-50">{(msg.datetime).split('T')[0]}  {(msg.datetime).split('T')[1].slice(0, 8)}</time>
-                  <span className='mx-2'> {user.fullname}</span>
-              
-                  
-                </div>
-              <div className="chat-bubble whitespace-pre-wrap bg-green-700 text-xl">{msg.text}</div>
             </div>
           )
         )}
@@ -121,21 +129,24 @@ function Messages() {
 
       <div className="input-message">
         <textarea
+          ref={textarea}
           placeholder="Type a message..."
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
+          className=' text-black'
           onInput={(e) => {
             e.target.style.height = 'auto';
             e.target.style.height = e.target.scrollHeight + 'px';
           }}
           onKeyDown={(e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
+              e.target.style.height = 'auto';
               e.preventDefault();
               handleSendMessage();
             }
           }}
         />
-        <button onClick={handleSendMessage}>Send</button>
+        <button onClick={handleSendMessage} className=' mx-3'>Send</button>
       </div>
       {/* socket io integragion */}
 

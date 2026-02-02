@@ -96,8 +96,8 @@ export default function Home() {
       </div>
 
       {/* ---------------- PROTECTION SECTION ---------------- */}
-      <section className="section">
-        <div className="header">
+      <section className="section ">
+        <div className="header-a">
           <Decrypt
             text="multiple layers of protection."
             parentClassName="subtitle text-center text-white my-5"

@@ -9,7 +9,15 @@ import Messages from '../components/Messages'
 
 function Dashboard() {
   const { user, connectSocket } = useStore()
-  const { userId, setUserId, getAllcontacts, activeTab, setActiveTab } = useUserChatsStore()
+  const {
+    userId,
+    setUserId,
+    getAllcontacts,
+    activeTab,
+    setActiveTab
+  } = useUserChatsStore()
+
+  const [sidebarOpen, setSidebarOpen] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
@@ -17,29 +25,67 @@ function Dashboard() {
       setUserId(user.id)
       getAllcontacts()
     }
-  }, [user, userId, setUserId, getAllcontacts])
+  }, [user])
 
   useEffect(() => {
-    if (user) {
-      connectSocket()
-    }
-  }, [user, connectSocket])
+    if (user) connectSocket()
+  }, [user])
+if(sidebarOpen){
+  if(document.body.clientWidth<768){
+     
+  }else{
+    document.body.classList.remove('sidebar-open');
+  }
+}
 
   return (
-    <div className='dashboard'>
-      <div className="sidebar">
-        <div className="header">
-          CONNECT
-          <Profile />
-          <div className="controls">
-            <button className={`tab-btn ${activeTab === 'chats' ? 'active' : ''}`} onClick={() => setActiveTab('chats')}>Chats</button>
-            <button className={`tab-btn ${activeTab === 'contacts' ? 'active' : ''}`} onClick={() => setActiveTab('contacts')}>Contacts</button>
+    <div className="dashboard-root">
+
+      {/* FLOATING SIDEBAR TOGGLE */}
+      <button
+        className="sidebar-toggle"
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+      >
+        {sidebarOpen ? '⟨' : '⟩'}
+      </button>
+
+      <div className={`dashboard ${sidebarOpen ? '' : 'collapsed'}`}>
+
+        {/* SIDEBAR */}
+        <aside className="sidebar py-8">
+          <div className="sidebar-top">
+            <div className="brand ">CONNECT</div>
+            <Profile />
           </div>
-          
-        </div>
-        {activeTab === 'contacts' ? <Contacts searchTerm={searchTerm} setSearchTerm={setSearchTerm} /> : <Chats />}
+
+          <div className="sidebar-tabs">
+            <button
+              className={activeTab === 'chats' ? 'active' : ''}
+              onClick={() => setActiveTab('chats')}
+            >
+              Chats
+            </button>
+            <button
+              className={activeTab === 'contacts' ? 'active' : ''}
+              onClick={() => setActiveTab('contacts')}
+            >
+              Contacts
+            </button>
+          </div>
+
+          <div className="sidebar-body">
+            {activeTab === 'contacts'
+              ? <Contacts searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+              : <Chats />}
+          </div>
+        </aside>
+
+        {/* CHAT AREA */}
+        <section className="chat-area">
+          <Messages />
+        </section>
+
       </div>
-      <Messages />
     </div>
   )
 }

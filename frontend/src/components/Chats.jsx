@@ -32,12 +32,14 @@ function Chats() {
     <div className="contact-list">
       {allcontacts.map((contact)=>(
         <div className="contact" key={contact.id} onClick={() => handleSelectContact(contact)}>
-          <div className="profile-cont">P</div>
-          <div className="info">
-            <div className="name">{contact.fullname}</div>
+          <div className="profile-avatar">
+          {contact?.fullname?.charAt(0).toUpperCase() || 'U'}
+          </div>
+          <div className="info ">
+            <div className="name" id="name">{contact.fullname}</div>
             <div className="email">{contact.email}</div>
           </div>
-          {selectedUser && selectedUser.id === contact.id && <div className="selected-indicator">✓</div>}
+          {selectedUser && selectedUser.id === contact.id && <div className="selected-indicator"></div>}
         </div>
       ))}
 

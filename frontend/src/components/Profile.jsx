@@ -8,15 +8,27 @@ import { toast } from 'react-toastify'
 function Profile() {
   const { user, setUser } = useStore()
   const navigate = useNavigate()
-  const { setUserId,setSelectedUser,setActiveTab,setIsUsersLoading } = useUserChatsStore()
+  const {
+    setUserId,
+    setSelectedUser,
+    setActiveTab,
+    setIsUsersLoading
+  } = useUserChatsStore()
+
   const handleLogout = async () => {
     try {
-      await axios.post('http://localhost:3000/api/auth/logout', {}, { withCredentials: true })
+      await axios.post(
+        'http://localhost:3000/api/auth/logout',
+        {},
+        { withCredentials: true }
+      )
+
       setUser(null)
       setUserId(null)
       setSelectedUser(null)
       setActiveTab('chats')
       setIsUsersLoading(false)
+
       toast.success('Logged out successfully!')
       navigate('/login')
     } catch (err) {
@@ -25,10 +37,23 @@ function Profile() {
   }
 
   return (
-    <div className="profile" style={{display:'flex'}}>
-      <div className="profile-pic">{user?.name?.charAt(0).toUpperCase() || 'U'}</div>
-      <div className="name">{user?.name || user?.email || 'User'}</div>
-      <button className='logout-btn' style={{display:"block"}} onClick={handleLogout}>Logout</button>
+    <div className="profile-card">
+      <div className="profile-avatar">
+        {user?.name?.charAt(0).toUpperCase() || 'U'}
+      </div>
+
+      <div className="profile-info">
+        <div className="profile-name">
+          {user?.name || 'User'}
+        </div>
+        <div className="profile-email">
+          {user?.email}
+        </div>
+      </div>
+
+      <button className="logout-btn" onClick={handleLogout}>
+        Logout
+      </button>
     </div>
   )
 }

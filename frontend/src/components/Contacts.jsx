@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useUserChatsStore } from '../zustnd/userChats'
 import Loading from './loading'
+
 function Contacts({ searchTerm, setSearchTerm }) {
   const {
     chats = [],
@@ -47,23 +48,26 @@ function Contacts({ searchTerm, setSearchTerm }) {
           placeholder="Search contacts..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="search-input"
+          className="search-input text-black border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
-      <div className="contacts-list">
+      <div className="contact-list flex flex-col my-6 overflow-y-scroll scrollbar-none">
         {isUsersLoading ? (
           <Loading />
+        ) : filteredContacts.length === 0 ? (
+          <div className="no-contacts">No contacts found.</div>
         ) : (
           filteredContacts.map(contact => (
-            <div style={{cursor:"pointer"}}
-              key={contact.id}
-              className={`contact ${
-                selectedUser?.id === contact.id ? 'active' : ''
-              }`}
-              onClick={() => handleSelectContact(contact)}
-            >
-              <p>{contact.email}</p>
+            <div className="contact" key={contact.id} onClick={() => handleSelectContact(contact)}>
+              <div className="profile-avatar">
+                {contact?.fullname?.charAt(0).toUpperCase() || 'U'}
+              </div>
+              <div className="info">
+                <div className="name" id="name">{contact.fullname}</div>
+                <div className="email">{contact.email}</div>
+              </div>
+              {selectedUser && selectedUser.id === contact.id && <div className="selected-indicator"></div>}
             </div>
           ))
         )}
