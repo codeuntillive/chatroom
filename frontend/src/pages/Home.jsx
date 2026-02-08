@@ -11,20 +11,20 @@ import MagicBento from "../components/bento";
 
 export default function Home() {
   const navigate = useNavigate();
-  /* ---------------- REFS ---------------- */
+
   const heroRef = useRef(null);
   const statsRef = useRef(null);
   const laserContainerRef = useRef(null);
   const revealImgRef = useRef(null);
 
-  /* ---------------- STATE ---------------- */
+
   const [laserMounted, setLaserMounted] = useState(false);
   const [laserKey, setLaserKey] = useState(0);
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
 
 
-  /* ---------------- GSAP HERO ANIMATIONS ---------------- */
+
   useEffect(() => {
 
 
@@ -54,12 +54,12 @@ export default function Home() {
 
 
 
-  /* ---------------- MAIN UI ---------------- */
+
   return (
     <div className=" overflow-scroll">
       <Navbar />
 
-      {/* ---------------- HERO ---------------- */}
+ 
       <section className="hero" ref={heroRef}>
         <video src={bg} autoPlay loop muted className="bg" />
         <div className="hero-content">
@@ -77,7 +77,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------------- STATS ---------------- */}
+  
       <div className="stats" ref={statsRef}>
         <div className="stat">
           <h3>256-bit</h3>
@@ -95,7 +95,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ---------------- PROTECTION SECTION ---------------- */}
+    
       <section className="section ">
         <div className="header-a">
           <Decrypt
@@ -120,7 +120,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------------- LASER SECTION ---------------- */}
+
       <div
         className="
           laser-section my-1 relative overflow-hidden bg-[#1111]
@@ -163,10 +163,9 @@ export default function Home() {
 
 
       >
-        {/* ---------------- LASER CANVAS ---------------- */}
+
         <video src={laser} autoPlay loop muted className="laser relative " ></video>
 
-        {/* ---------------- MAGIC BENTO ---------------- */}
         <div
           className="
             bentoo   "
@@ -174,7 +173,7 @@ export default function Home() {
           <MagicBento />
         </div>
 
-        {/* ---------------- REVEAL IMAGE ---------------- */}
+
         <img
           ref={revealImgRef}
           src={chatsImg}
@@ -209,39 +208,17 @@ export default function Home() {
 
       </div>
 
-      {/* ---------------- FOOTER ---------------- */}
+
       <footer className="footer bg-black  text-white sm:footer-horizontal p-20">
         <nav>
-          <h6 className="footer-title">Services</h6>
-          <a className="link link-hover">Branding</a>
-          <a className="link link-hover">Design</a>
-          <a className="link link-hover">Marketing</a>
-          <a className="link link-hover">Advertisement</a>
+          <h6 className="footer-title">Made by:Aadity Gautam</h6>
+          <a className="link link-hover"href="https://github.com/codeuntillive?tab=overview&from=2026-02-01&to=2026-02-03">Github</a>
+          <a className="link link-hover">Discord</a>
+          
+          
         </nav>
-        <nav>
-          <h6 className="footer-title">Company</h6>
-          <a className="link link-hover">About us</a>
-          <a className="link link-hover">Contact</a>
-          <a className="link link-hover">Jobs</a>
-          <a className="link link-hover">Press kit</a>
-        </nav>
-        <nav>
-          <h6 className="footer-title">Social</h6>
-          <div className="grid grid-flow-col gap-4">
-            <a>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                className="fill-current"
-              >
-                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 ..."></path>
-              </svg>
-            </a>
-            
-          </div>
-        </nav>
+        
+        
       </footer>
     </div>
   );

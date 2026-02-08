@@ -2,7 +2,7 @@ import crypto from "crypto";
 
 const algorithm = "aes-256-cbc";
 
-// Convert secret to 32 bytes key
+
 const key = crypto
   .createHash("sha256")
   .update(process.env.MESSAGE_SECRET)
@@ -15,7 +15,7 @@ export function encrypt(text) {
   let encrypted = cipher.update(text, "utf8", "hex");
   encrypted += cipher.final("hex");
 
-  // store iv + encrypted text together
+
   return iv.toString("hex") + ":" + encrypted;
 }
 

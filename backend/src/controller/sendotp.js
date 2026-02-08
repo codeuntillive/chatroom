@@ -7,7 +7,7 @@ export const sendOTPEmail = async (to, otp) => {
         const transporter = await nodemailer.createTransport({
             host: "smtp.gmail.com",
             port: 587,
-            secure: false, // true for 465, false for other ports
+            secure: false,
             auth: {
                 user: process.env.opt_user,
                 pass: process.env.otp_token,

@@ -32,14 +32,13 @@ app.use(passport.session());
 const __dirname = path.resolve();
 
 
-// routes will go here
 app.use("/api/auth", authRouter);
 app.use("/api/message",checkauth, messageRouter);
 
 
 
 
-// reday for deployment
+
 if(process.env.NODE_ENV === 'production'){
   app.use(express.static(path.join(__dirname,'../frontend/dist')));
   app.get(/.*/, (req, res) => {
