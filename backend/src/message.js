@@ -7,14 +7,19 @@ import { encrypt, decrypt } from './controller/encrypt.js';
 
 // connect to database
 const db = new pg.Client({
-    user: "postgres",
-    host: "localhost",
-    database: "chatroom",
-    password: "123456",
-    port: 5432,
+  connectionString: process.env.Database_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
+try{
+   
+    db.connect();
+}catch(err){
+    console.log(err);
+}
 
-db.connect().catch(console.error);
+
 
 // main
 const router = express.Router();
