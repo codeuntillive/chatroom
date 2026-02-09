@@ -2,7 +2,7 @@ import React from 'react'
 import { useStore } from '../zustnd/store'
 import { useUserChatsStore } from '../zustnd/userChats'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import API from '../api'
 import { toast } from 'react-toastify'
 
 function Profile() {
@@ -17,10 +17,9 @@ function Profile() {
 
   const handleLogout = async () => {
     try {
-      await axios.post(
-        'http://localhost:3000/api/auth/logout',
-        {},
-        { withCredentials: true }
+      await API.post(
+        '/auth/logout',
+        {}
       )
 
       setUser(null)

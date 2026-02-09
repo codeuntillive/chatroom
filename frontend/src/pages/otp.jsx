@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import API from '../api'
 import { toast } from 'react-toastify'
 import '../style/Login.css'
 import Navbar from '../components/navbar'
@@ -56,10 +56,9 @@ function Otp() {
     }
 
     try {
-      const res = await axios.post(
-        'http://localhost:3000/api/auth/otp',
-        { otp: finalOtp },
-        { withCredentials: true }
+      const res = await API.post(
+        '/auth/otp',
+        { otp: finalOtp }
       )
 
       if (res.data.validate) {
@@ -78,10 +77,9 @@ function Otp() {
     if (timer > 0) return
 
     try {
-      const res = await axios.post(
-        'http://localhost:3000/api/auth/resend-otp',
-        {},
-        { withCredentials: true }
+      const res = await API.post(
+        '/auth/resend-otp',
+        {}
       )
 
       if (res.data.validate) {

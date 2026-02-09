@@ -14,7 +14,7 @@ import { sessionMiddleware } from './sessionConfig.js';
 dotenv.config();
 
 app.use(cors({
-  origin: ["http://localhost:5173","https://chatroom-z517.onrender.com/"],
+  origin: ["http://localhost:5173","https://chatroom-z517.onrender.com"],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "cache-control"]

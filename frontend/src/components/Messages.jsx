@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useUserChatsStore } from '../zustnd/userChats'
 import { useStore } from '../zustnd/store'
+import { SOCKET_URL } from '../api'
 import '../style/messages.css'
 import profile from '../assets/profile.png'
 import Loading from './loading'
@@ -24,7 +25,7 @@ function Messages() {
 
   useEffect(() => {
     if (userId) {
-      socketRef.current = io('http://localhost:3000', {
+      socketRef.current = io(SOCKET_URL, {
         withCredentials: true,
       })
 

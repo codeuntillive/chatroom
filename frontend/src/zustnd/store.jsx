@@ -1,5 +1,6 @@
 import {create} from 'zustand';
 import {useUserChatsStore} from './userChats';
+import { SOCKET_URL } from '../api';
 export const useStore = create((set,get) => ({
   user: null,
   socket: null,
@@ -17,7 +18,7 @@ export const useStore = create((set,get) => ({
       }
       console.log("connectSocket: Attempting to connect socket for user:", get().user.id);
       const { io } = await import('socket.io-client');
-      const socket = io('http://localhost:3000', {
+      const socket = io(SOCKET_URL, {
           withCredentials: true,
       });
       socket.on('connect', () => {

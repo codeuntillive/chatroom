@@ -5,7 +5,7 @@ import Signup from './pages/Signup'
 import Dashboard from './pages/db'
 import Otp from './pages/otp'
 import { useEffect } from 'react'
-import axios from 'axios'
+import API from './api'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useStore } from './zustnd/store'
@@ -18,11 +18,11 @@ function App() {
     console.log("App useEffect: Fetching user on mount");
     const fetchUser = async () => {
       try {
-        const res = await axios.get(
-          'http://localhost:3000/api/auth/user',
-          { withCredentials: true ,headers: {
-    "Cache-Control": "no-cache"
-  }}
+        const res = await API.get(
+          '/auth/user',
+          { headers: {
+            "Cache-Control": "no-cache"
+          }}
         )
         if (res.data.validate) {
           console.log("App fetchUser: User validated");

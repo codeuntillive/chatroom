@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import API from '../api'
 import { toast } from 'react-toastify'
 import '../style/Login.css'
 
@@ -37,16 +37,14 @@ function Login() {
     setIsLoading(true)
 
     try {
-      const res = await axios.post(
-        'http://localhost:3000/api/auth/login',
-        formData,
-        { withCredentials: true }
+      const res = await API.post(
+        '/auth/login',
+        formData
       )
 
       if (res.status === 200) {
-        const userRes = await axios.get(
-          'http://localhost:3000/api/auth/user',
-          { withCredentials: true }
+        const userRes = await API.get(
+          '/auth/user'
         )
 
         if (userRes.data.validate) {

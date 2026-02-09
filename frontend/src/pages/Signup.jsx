@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import API from '../api'
 import { toast } from 'react-toastify'
 import '../style/Signup.css'
 
@@ -37,10 +37,9 @@ function Signup() {
     setIsLoading(true)
 
     try {
-      const res = await axios.post(
-        'http://localhost:3000/api/auth/register',
-        formData,
-        { withCredentials: true }
+      const res = await API.post(
+        '/auth/register',
+        formData
       )
 
       if (res.data.validate) {

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import io from 'socket.io-client';
+import API from "../api";
 
 export const useUserChatsStore = create((set, get) => ({
   /* ===================== STATE ===================== */
@@ -27,17 +27,9 @@ export const useUserChatsStore = create((set, get) => ({
     set({ isUsersLoading: true });
 
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/message/contacts/${userId}`,
-        { credentials: "include" }
-      );
+      const response = await API.get(`/message/contacts/${userId}`);
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch contacts");
-      }
-
-      const data = await response.json();
-      set({ allcontacts: data });
+      set({ allcontacts: response.data });
     } catch (error) {
       console.error("Contacts error:", error);
     } finally {
@@ -50,17 +42,11 @@ export const useUserChatsStore = create((set, get) => ({
     set({ isUsersLoading: true });
 
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/message/searchUsers/${get().userId}/${email}`,
-        { credentials: "include" }
+      const response = await API.get(
+        `/message/searchUsers/${get().userId}/${email}`
       );
 
-      if (!response.ok) {
-        throw new Error("Failed to search users");
-      }
-
-      const data = await response.json();
-      set({ chats: data });
+      set({ chats: response.data });
     } catch (error) {
       console.error("Search users error:", error);
     } finally {
@@ -77,17 +63,11 @@ export const useUserChatsStore = create((set, get) => ({
     set({ isMessagesLoading: true });
 
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/message/messages/${myUserId}/${otherUserId}`,
-        { credentials: "include" }
+      const response = await API.get(
+        `/message/messages/${myUserId}/${otherUserId}`
       );
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch messages");
-      }
-
-      const data = await response.json();
-      set({ messages: data });
+      set({ messages: response.data });
     } catch (error) {
       console.error("Messages error:", error);
     } finally {
@@ -101,26 +81,14 @@ export const useUserChatsStore = create((set, get) => ({
     if (!senderId || !receiverId) return;
 
     try {
-      const response = await fetch("http://localhost:3000/api/message/text", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          senderId,
-          receiverId,
-          textt: text||null,
-          imgg: img||null,
-        }),
+      const response = await API.post("/message/text", {
+        senderId,
+        receiverId,
+        textt: text || null,
+        imgg: img || null,
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to send message");
-      }
-
-      const data = await response.json();
-      // Optionally, update the messages state with the new message
+      const data = response.data;
       const currentMessages = get().messages;
       set({ messages: [...currentMessages, data] });
     } catch (error) {
@@ -144,4 +112,3 @@ export const useUserChatsStore = create((set, get) => ({
       activeTab: "chats",
     }),
 }));
-
