@@ -27,15 +27,15 @@ function App() {
         if (res.data.validate) {
           console.log("App fetchUser: User validated");
           getOnlineUsers();
-          console.log(onlineUsers);
+          
           setUser(res.data.user)
           console.log("Setting userId in userChatsStore:", res.data.user.id);
           setUserId(res.data.user.id);
         } else {
-          console.log("App fetchUser: User not validated");
+          
           setUser(null)
         }
-        console.log("User data:", res.data)
+      
       } catch (err) {
         console.log("App fetchUser: Error fetching user", err)
         setUser(null)
@@ -44,9 +44,7 @@ function App() {
 
     fetchUser()
   }, [setUser])
-  useEffect(() => {
-    console.log("Socket or onlineUsers changed:", onlineUsers);
-  }, [socket, onlineUsers]);
+
 
   return (
     <BrowserRouter>
@@ -56,7 +54,7 @@ function App() {
         <Route path='/signup' element={user ? <Navigate to="/dashboard"/> : <Signup/>} />
         <Route path='/dashboard' element={user ? <Dashboard /> : <Navigate to="/login" />} />
         <Route path="/otp" element={<Otp />} />
-        <Route path='/gsap' element={<Intro/>}/>
+        
       </Routes>
       <ToastContainer />
     </BrowserRouter>
